@@ -1,0 +1,41 @@
+{
+  "accessKeyId": "",
+  "accessKeySecret": "",
+  "phoneNumbers": "",
+  "dailyTime": "1700",
+
+  "block_mongodbConnStr_testnet":"",
+  "block_mongodbDatabase_testnet":"",
+  "analy_mongodbConnStr_testnet":"",
+  "analy_mongodbDatabase_testnet":"",
+  "notify_mongodbConnStr_testnet":"",
+  "notify_mongodbDatabase_testnet":"",
+  "block_mongodbConnStr_mainnet":"",
+  "block_mongodbDatabase_mainnet":"",
+  "analy_mongodbConnStr_mainnet":"",
+  "analy_mongodbDatabase_mainnet":"",
+  "notify_mongodbConnStr_mainnet":"",
+  "notify_mongodbDatabase_mainnet":"",
+  
+  //
+  "mailFrom": "",
+  "mailPwd": "",
+  "smtpHost": "",
+  "smtpPort": "",
+  "smtpEnableSsl": "",
+  "subject": "",
+  "body": "",
+  "listener": "",
+
+  //
+  "isBlock": 1,
+  "isTx": 1,
+  "isNotify": 1,
+  "isAnaly": 1,
+  "loop_interval_seconds": 15,
+  "height_warn_threshold": 10,
+  "time_warn_threshold": 300,
+
+  "": ""
+
+}

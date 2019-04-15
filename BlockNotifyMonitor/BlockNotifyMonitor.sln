@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockNotifyMonitor", "BlockNotifyMonitor\BlockNotifyMonitor.csproj", "{57D13E42-1BAE-4D6C-84E6-FB983688E1C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57D13E42-1BAE-4D6C-84E6-FB983688E1C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57D13E42-1BAE-4D6C-84E6-FB983688E1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57D13E42-1BAE-4D6C-84E6-FB983688E1C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57D13E42-1BAE-4D6C-84E6-FB983688E1C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {543D9C96-5883-48DB-B543-F99B18253EFD}
+	EndGlobalSection
+EndGlobal

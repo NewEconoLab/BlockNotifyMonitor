@@ -1,0 +1,8 @@
+﻿
+namespace BlockNotifyMonitor
+{
+    class HttpHelper
+    {
+
+    }
+}
