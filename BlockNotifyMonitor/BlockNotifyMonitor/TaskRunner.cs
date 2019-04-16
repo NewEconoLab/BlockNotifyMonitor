@@ -82,10 +82,10 @@ namespace BlockNotifyMonitor
             {
                 mainnetStr = "mainnet";
                 testnetStr = "testnet";
-                blockMonitor = "blockMonitor";
-                txMonitor = "txMonitor";
-                notifyMonitor = "notifyMonitor";
-                analyMonitor = "analyMonitor";
+                blockMonitor = "blockMonitor[节点进程]";
+                txMonitor = "txMonitor[爬虫进程]";
+                notifyMonitor = "notifyMonitor[合约分析进程]";
+                analyMonitor = "analyMonitor[Neo分析进程]";
             }
 
 
