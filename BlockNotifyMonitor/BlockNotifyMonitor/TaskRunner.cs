@@ -63,6 +63,7 @@ namespace BlockNotifyMonitor
             int loop_interval_seconds = int.Parse(root["loop_interval_seconds"]);
             int height_warn_threshold = int.Parse(root["height_warn_threshold"]);
             int time_warn_threshold = int.Parse(root["time_warn_threshold"]);
+            int powRelay = int.Parse(root["powRelay"]);
             Console.WriteLine(mainName + ".isBlock:" + isBlock);
             Console.WriteLine(mainName + ".isTx:" + isTx);
             Console.WriteLine(mainName + ".isNotify:" + isNotify);
@@ -70,6 +71,7 @@ namespace BlockNotifyMonitor
             Console.WriteLine(mainName + ".loop_interval_seconds:" + loop_interval_seconds);
             Console.WriteLine(mainName + ".height_warn_threshold:" + height_warn_threshold);
             Console.WriteLine(mainName + ".time_warn_threshold:" + time_warn_threshold);
+            Console.WriteLine(mainName + ".powRelay:" + powRelay);
 
             //
             string mainnetStr = "主网"; // "mainnet";//
@@ -89,15 +91,15 @@ namespace BlockNotifyMonitor
             }
 
 
-            if (isBlock) Task.Run(() => BlockMonitorTask.create(mainnetStr, blockMonitor, mh, block_mongodbConnStr_mainnet, block_mongodbDatabase_mainnet, "system_counter", "block", loop_interval_seconds, time_warn_threshold, emailHelper).loop());
-            if (isTx) Task.Run(() => NotifyMonitorTask.create(mainnetStr, txMonitor, mh, block_mongodbConnStr_mainnet, block_mongodbDatabase_mainnet, "system_counter", "block", block_mongodbConnStr_mainnet, block_mongodbDatabase_mainnet, "system_counter", "tx", loop_interval_seconds, height_warn_threshold, emailHelper).loop());
-            if (isNotify) Task.Run(() => NotifyMonitorTask.create(mainnetStr, notifyMonitor, mh, block_mongodbConnStr_mainnet, block_mongodbDatabase_mainnet, "system_counter", "notify", notify_mongodbConnStr_mainnet, notify_mongodbDatabase_mainnet, "contractRecord", "notify", loop_interval_seconds, height_warn_threshold, emailHelper).loop());
-            if (isAnaly) Task.Run(() => NotifyMonitorTask.create(mainnetStr, analyMonitor, mh, block_mongodbConnStr_mainnet, block_mongodbDatabase_mainnet, "system_counter", "utxo", analy_mongodbConnStr_mainnet, analy_mongodbDatabase_mainnet, "system_counter", "utxoBalance", loop_interval_seconds, height_warn_threshold, emailHelper).loop());
+            if (isBlock) Task.Run(() => BlockMonitorTask.create(mainnetStr, blockMonitor, mh, block_mongodbConnStr_mainnet, block_mongodbDatabase_mainnet, "system_counter", "block", loop_interval_seconds, time_warn_threshold, powRelay, emailHelper).loop());
+            if (isTx) Task.Run(() => NotifyMonitorTask.create(mainnetStr, txMonitor, mh, block_mongodbConnStr_mainnet, block_mongodbDatabase_mainnet, "system_counter", "block", block_mongodbConnStr_mainnet, block_mongodbDatabase_mainnet, "system_counter", "tx", loop_interval_seconds, height_warn_threshold, powRelay,emailHelper).loop());
+            if (isNotify) Task.Run(() => NotifyMonitorTask.create(mainnetStr, notifyMonitor, mh, block_mongodbConnStr_mainnet, block_mongodbDatabase_mainnet, "system_counter", "notify", notify_mongodbConnStr_mainnet, notify_mongodbDatabase_mainnet, "contractRecord", "notify", loop_interval_seconds, height_warn_threshold, powRelay,emailHelper).loop());
+            if (isAnaly) Task.Run(() => NotifyMonitorTask.create(mainnetStr, analyMonitor, mh, block_mongodbConnStr_mainnet, block_mongodbDatabase_mainnet, "system_counter", "utxo", analy_mongodbConnStr_mainnet, analy_mongodbDatabase_mainnet, "system_counter", "utxoBalance", loop_interval_seconds, height_warn_threshold, powRelay,emailHelper).loop());
             
-            if (isBlock) Task.Run(() => BlockMonitorTask.create(testnetStr, blockMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "block", loop_interval_seconds, time_warn_threshold, emailHelper).loop());
-            if (isTx) Task.Run(() => NotifyMonitorTask.create(testnetStr, txMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "block", block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "tx", loop_interval_seconds, height_warn_threshold, emailHelper).loop());
-            if (isNotify) Task.Run(() => NotifyMonitorTask.create(testnetStr, notifyMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "notify", notify_mongodbConnStr_testnet, notify_mongodbDatabase_testnet, "contractRecord", "notify", loop_interval_seconds, height_warn_threshold, emailHelper).loop());
-            if (isAnaly) Task.Run(() => NotifyMonitorTask.create(testnetStr, analyMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "utxo", analy_mongodbConnStr_testnet, analy_mongodbDatabase_testnet, "system_counter", "utxoBalance", loop_interval_seconds, height_warn_threshold, emailHelper).loop());
+            if (isBlock) Task.Run(() => BlockMonitorTask.create(testnetStr, blockMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "block", loop_interval_seconds, time_warn_threshold, powRelay,emailHelper).loop());
+            if (isTx) Task.Run(() => NotifyMonitorTask.create(testnetStr, txMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "block", block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "tx", loop_interval_seconds, height_warn_threshold, powRelay,emailHelper).loop());
+            if (isNotify) Task.Run(() => NotifyMonitorTask.create(testnetStr, notifyMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "notify", notify_mongodbConnStr_testnet, notify_mongodbDatabase_testnet, "contractRecord", "notify", loop_interval_seconds, height_warn_threshold, powRelay,emailHelper).loop());
+            if (isAnaly) Task.Run(() => NotifyMonitorTask.create(testnetStr, analyMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "utxo", analy_mongodbConnStr_testnet, analy_mongodbDatabase_testnet, "system_counter", "utxoBalance", loop_interval_seconds, height_warn_threshold, powRelay,emailHelper).loop());
             
 
             while (true)

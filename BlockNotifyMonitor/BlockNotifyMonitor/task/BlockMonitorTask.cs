@@ -18,6 +18,7 @@ namespace BlockNotifyMonitor.task
             string key,
             int interval,
             int threshold,
+            int powRelay,
             //
             EmailHelper emailHelper
             ) => new BlockMonitorTask
@@ -37,6 +38,7 @@ namespace BlockNotifyMonitor.task
                 key = key,
                 interval = interval,
                 threshold = threshold,
+                powRelay = powRelay,
                 //
                 emailHelper = emailHelper
             };
@@ -56,9 +58,9 @@ namespace BlockNotifyMonitor.task
                 {
                     bh = nbh;
                     tm = ntm;
+                    reset();
                     continue;
                 }
-
                 if ((ntm - tm).TotalSeconds > threshold)
                 {
                     string message = string.Format("{0}  {1}_{2} 区块高度不变超过时间阈值: {3}(s), 此时高度: {4}", DateTime.Now.ToString("u"), network, taskname, threshold, nbh);

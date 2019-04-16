@@ -20,6 +20,7 @@ namespace BlockNotifyMonitor.task
         protected string key { get; set; }
         protected int interval { get; set; } = 15;
         protected int threshold { get; set; } = 15; // 时间阈值(单位：秒)
+        protected int powRelay { get; set; } = 2; // 延迟底数
         //
         protected EmailHelper emailHelper { get; set; }
 
@@ -45,6 +46,7 @@ namespace BlockNotifyMonitor.task
             string key,
             int interval,
             int threshold,
+            int powRelay,
             //
             EmailHelper emailHelper
             ) => new NotifyMonitorTask
@@ -63,6 +65,7 @@ namespace BlockNotifyMonitor.task
                 key = key,
                 interval = interval,
                 threshold = threshold,
+                powRelay = powRelay,
                 //
                 emailHelper = emailHelper
             };
@@ -93,7 +96,11 @@ namespace BlockNotifyMonitor.task
                 // 相差高度大于阈值时, 排除掉程序重启正在同步数据情况, 然后发送通知
                 Thread.Sleep(1000);
                 var th = getDataCounter();
-                if (th > height) return;
+                if (th > height)
+                {
+                    reset();
+                    return;
+                }
 
                 //
                 string message = string.Format("{0}  {1}_{2} 任务与上游高度相差超过阈值: {3}(个), 实际高度: {4}/{5}", DateTime.Now.ToString("u"), network, taskname, threshold, height, upHeight);
@@ -126,7 +133,7 @@ namespace BlockNotifyMonitor.task
             if (lastSendTime != null)
             {
                 int range = (int)(now - lastSendTime).Value.TotalSeconds;
-                int limit = firstSendIntervalSeconds * continueSendCount * 2;
+                int limit = firstSendIntervalSeconds * (int)Math.Pow(2, continueSendCount);
                 if (range < limit) return;
             }
 
@@ -134,6 +141,11 @@ namespace BlockNotifyMonitor.task
             lastSendTime = now;
             ++continueSendCount;
             Console.WriteLine(message);
+        }
+        protected void reset()
+        {
+            lastSendTime = null;
+            continueSendCount = 0;
         }
 
 
