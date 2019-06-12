@@ -1,6 +1,8 @@
 ﻿using BlockNotifyMonitor.task;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -100,7 +102,31 @@ namespace BlockNotifyMonitor
             if (isTx) Task.Run(() => NotifyMonitorTask.create(testnetStr, txMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "block", block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "tx", loop_interval_seconds, height_warn_threshold, powRelay,emailHelper).loop());
             if (isNotify) Task.Run(() => NotifyMonitorTask.create(testnetStr, notifyMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "notify", notify_mongodbConnStr_testnet, notify_mongodbDatabase_testnet, "contractRecord", "notify", loop_interval_seconds, height_warn_threshold, powRelay,emailHelper).loop());
             if (isAnaly) Task.Run(() => NotifyMonitorTask.create(testnetStr, analyMonitor, mh, block_mongodbConnStr_testnet, block_mongodbDatabase_testnet, "system_counter", "utxo", analy_mongodbConnStr_testnet, analy_mongodbDatabase_testnet, "system_counter", "utxoBalance", loop_interval_seconds, height_warn_threshold, powRelay,emailHelper).loop());
-            
+
+
+            //var subcfg = JObject.Parse(root["apiTaskInfo"].ToString());
+            Console.WriteLine(root["cc"].ToString());
+            var subcfg = root.GetSection("apiTaskInfo");
+            if(subcfg != null)
+            {
+                bool isApi = subcfg["isApi"].ToString() == "1";
+                string[] apis = subcfg.GetSection("apis").GetChildren().Select(p => p.Value).ToArray();
+                int api_interval = int.Parse(subcfg["api_interval"].ToString());
+                int api_threshold = int.Parse(subcfg["api_threshold"].ToString());
+                int api_powRelay = int.Parse(subcfg["api_powRelay"].ToString());
+                Console.WriteLine(mainName + ".isApi:" + isApi);
+                Console.WriteLine(mainName + ".apis:" + apis.ToList());
+                Console.WriteLine(mainName + ".api_interval:" + api_interval);
+                Console.WriteLine(mainName + ".api_threshold:" + api_threshold);
+                Console.WriteLine(mainName + ".api_powRelay:" + api_powRelay);
+                if (isApi)
+                {
+                    if (apis != null && apis.Count() > 0)
+                    {
+                        Task.Run(() => ApiMonitorTask.create(apis, api_interval, api_threshold, api_powRelay, emailHelper).loop());
+                    }
+                }
+            }
 
             while (true)
             {
